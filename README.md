@@ -6,6 +6,7 @@ Cecklist
 Setup Jsoup to scrape matches /done
 Persist to MySql db /done
 
+Geocode longitude and latitude from location data and add to table.
 Add every match onto a map.
 Refactor scrape to scrape match details on every match srcaped and add minimum round,fee,days to ipscmatch table for more detaild search options.
 Add proxys to avoid rate limit for initial scrape.
