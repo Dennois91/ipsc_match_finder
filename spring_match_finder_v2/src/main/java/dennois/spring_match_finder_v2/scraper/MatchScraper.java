@@ -17,6 +17,8 @@ import java.io.IOException;
 public class MatchScraper {
     @Value("${ipsc.calendar.url}")
     private String IPSC_CALENDAR_URL;
+    @Value("${match.details.root.url}")
+    private String MATCH_DETAILS_ROOT_URL;
     private final MatchRepository matchRepository;
 
     @Autowired
