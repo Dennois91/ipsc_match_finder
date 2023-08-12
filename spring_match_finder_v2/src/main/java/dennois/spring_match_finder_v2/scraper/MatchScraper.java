@@ -1,7 +1,7 @@
 package dennois.spring_match_finder_v2.scraper;
 
 import dennois.spring_match_finder_v2.model.ISPCMatch;
-import dennois.spring_match_finder_v2.repositories.MatchRepository;
+import dennois.spring_match_finder_v2.repositories.IPSCMatchRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -19,11 +19,11 @@ public class MatchScraper {
     private String IPSC_CALENDAR_URL;
     @Value("${match.details.root.url}")
     private String MATCH_DETAILS_ROOT_URL;
-    private final MatchRepository matchRepository;
+    private final IPSCMatchRepository IPSCMatchRepository;
 
     @Autowired
-    public MatchScraper(MatchRepository matchRepository) {
-        this.matchRepository = matchRepository;
+    public MatchScraper(IPSCMatchRepository IPSCMatchRepository) {
+        this.IPSCMatchRepository = IPSCMatchRepository;
     }
 
     public void fetchAndSaveMatches() {
@@ -61,9 +61,9 @@ public class MatchScraper {
                 ISPCMatch ISPCMatch = new ISPCMatch(matchDetailsLink, matchType, country, date, matchName, location, contactEmail);
 
                 // Check if entry exists
-                if (!matchRepository.existsByMatchDetailsLink(matchDetailsLink)) {
+                if (!IPSCMatchRepository.existsByMatchDetailsLink(matchDetailsLink)) {
                     try {
-                        matchRepository.save(ISPCMatch); // Persist the match to the database
+                        IPSCMatchRepository.save(ISPCMatch); // Persist the match to the database
                     } catch (DataAccessException e) {
                         //TODO Handle database exceptions, log them
                         System.err.println("Error saving match: " + ISPCMatch);
