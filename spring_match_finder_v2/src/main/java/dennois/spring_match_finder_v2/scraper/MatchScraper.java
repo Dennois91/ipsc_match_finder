@@ -1,6 +1,6 @@
 package dennois.spring_match_finder_v2.scraper;
 
-import dennois.spring_match_finder_v2.model.ISPCMatch;
+import dennois.spring_match_finder_v2.model.IPSCMatch;
 import dennois.spring_match_finder_v2.repositories.IPSCMatchRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -58,15 +58,15 @@ public class MatchScraper {
 
                 String location = splitData.length > 1 ? splitData[1].replaceAll("<.*?>", "").trim() : "Default Location or N/A"; // Removing any HTML tags and trimming
 
-                ISPCMatch ISPCMatch = new ISPCMatch(matchDetailsLink, matchType, country, date, matchName, location, contactEmail);
+                IPSCMatch IPSCMatch = new IPSCMatch(matchDetailsLink, matchType, country, date, matchName, location, contactEmail);
 
                 // Check if entry exists
                 if (!IPSCMatchRepository.existsByMatchDetailsLink(matchDetailsLink)) {
                     try {
-                        IPSCMatchRepository.save(ISPCMatch); // Persist the match to the database
+                        IPSCMatchRepository.save(IPSCMatch); // Persist the match to the database
                     } catch (DataAccessException e) {
                         //TODO Handle database exceptions, log them
-                        System.err.println("Error saving match: " + ISPCMatch);
+                        System.err.println("Error saving match: " + IPSCMatch);
                         e.printStackTrace();
                     }
                 }

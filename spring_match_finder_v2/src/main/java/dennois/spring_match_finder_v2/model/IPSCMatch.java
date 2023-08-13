@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class ISPCMatch {
+public class IPSCMatch {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +25,10 @@ public class ISPCMatch {
     private String matchName;
     private String location;
     private String contactEmail;
+    private Double latitude;
+    private Double longitude;
 
-    public ISPCMatch(String matchDetailsLink, String matchType, String country, String date, String matchName, String location, String contactEmail) {
+    public IPSCMatch(String matchDetailsLink, String matchType, String country, String date, String matchName, String location, String contactEmail) {
         this.matchDetailsLink = matchDetailsLink;
         this.matchType = matchType;
         this.country = country;
