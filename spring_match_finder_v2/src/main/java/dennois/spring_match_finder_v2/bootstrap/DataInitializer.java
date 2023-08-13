@@ -13,6 +13,7 @@ public class DataInitializer implements CommandLineRunner {
     private final MatchScraper matchScraper;
     private final AppendGeocodeService appendGeocode;
 
+
     @Autowired
     public DataInitializer(MatchScraper matchScraper, AppendGeocodeService appendGeocode) {
         this.matchScraper = matchScraper;

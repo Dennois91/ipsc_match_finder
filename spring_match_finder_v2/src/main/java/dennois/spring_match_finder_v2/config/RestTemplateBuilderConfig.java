@@ -19,6 +19,8 @@ import java.time.Duration;
 @Configuration
 public class RestTemplateBuilderConfig {
 
+    private final String email = System.getenv("EMAIL");
+
     @Value("${rest.template.root.url}")
     private String rootUrl;
 
@@ -29,7 +31,7 @@ public class RestTemplateBuilderConfig {
         }
 
         ClientHttpRequestInterceptor interceptor = (request, body, execution) -> {
-            request.getHeaders().set("User-Agent", "IPSC Match-Locator (dennis.fridstrom@yh.nackademin.se)");
+            request.getHeaders().set("User-Agent", "IPSC Match-Locator (" + email + ")");
             return execution.execute(request, body);
         };
 

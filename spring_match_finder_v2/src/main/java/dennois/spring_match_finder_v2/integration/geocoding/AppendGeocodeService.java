@@ -20,12 +20,12 @@ public class AppendGeocodeService {
     }
 
     public void updateAllMatchesWithCoordinates() {
-        List<IPSCMatch> matches = matchRepository.findAll();  // Assuming you have a method to fetch all matches.
+        List<IPSCMatch> matches = matchRepository.findAll();
 
         for (IPSCMatch match : matches) {
-            if (match.getLatitude() == null || match.getLongitude() == null) {  // Only update matches that don't have coordinates yet.
+            if (match.getLatitude() == null || match.getLongitude() == null) {
                 geocodingService.updateMatchWithCoordinates(match);
-                matchRepository.save(match);  // Save updated match back to the database.
+                matchRepository.save(match);
             }
         }
     }
