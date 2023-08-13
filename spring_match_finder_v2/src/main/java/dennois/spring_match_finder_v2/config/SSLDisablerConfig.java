@@ -10,7 +10,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 @Service
-public class SSLDisabler {
+public class SSLDisablerConfig {
 
     public static void disableSSLVerification() {
         TrustManager[] trustAllCertificates = new TrustManager[]{

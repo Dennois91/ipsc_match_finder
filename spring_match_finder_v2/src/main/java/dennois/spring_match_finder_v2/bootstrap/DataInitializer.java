@@ -1,6 +1,6 @@
 package dennois.spring_match_finder_v2.bootstrap;
 
-import dennois.spring_match_finder_v2.config.SSLDisabler;
+import dennois.spring_match_finder_v2.config.SSLDisablerConfig;
 import dennois.spring_match_finder_v2.scraper.MatchScraper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +19,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        SSLDisabler.disableSSLVerification();
+        SSLDisablerConfig.disableSSLVerification();
         matchScraper.fetchAndSaveMatches();
     }
 }
