@@ -34,18 +34,10 @@ public class MatchDetailsScraper {
                     String value = valueElement.text();
 
                     switch (label) {
-                        case "Number of Days:":
-                            match.setNumberOfDays(Integer.parseInt(value.trim()));
-                            break;
-                        case "Minimum Rounds:":
-                            match.setMinimumRounds(Integer.parseInt(value.trim()));
-                            break;
-                        case "Number of Stages:":
-                            match.setNumberOfStages(Integer.parseInt(value.trim()));
-                            break;
-                        case "Entry Fee (USD):":
-                            match.setMinimumFeeUSD(Double.parseDouble(value.trim()));
-                            break;
+                        case "Number of Days:" -> match.setNumberOfDays(Integer.parseInt(value.trim()));
+                        case "Minimum Rounds:" -> match.setMinimumRounds(Integer.parseInt(value.trim()));
+                        case "Number of Stages:" -> match.setNumberOfStages(Integer.parseInt(value.trim()));
+                        case "Entry Fee (USD):" -> match.setMinimumFeeUSD(Double.parseDouble(value.trim()));
                     }
                 }
             }
