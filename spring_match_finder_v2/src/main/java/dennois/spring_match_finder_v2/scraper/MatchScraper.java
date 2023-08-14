@@ -17,13 +17,14 @@ import java.io.IOException;
 public class MatchScraper {
     @Value("${ipsc.calendar.url}")
     private String IPSC_CALENDAR_URL;
-    @Value("${match.details.root.url}")
-    private String MATCH_DETAILS_ROOT_URL;
     private final IPSCMatchRepository IPSCMatchRepository;
+    private final MatchDetailsScraper matchDetailsScraper;
 
     @Autowired
-    public MatchScraper(IPSCMatchRepository IPSCMatchRepository) {
+    public MatchScraper(IPSCMatchRepository IPSCMatchRepository,
+                        MatchDetailsScraper matchDetailsScraper) {
         this.IPSCMatchRepository = IPSCMatchRepository;
+        this.matchDetailsScraper = matchDetailsScraper;
     }
 
     public void fetchAndSaveMatches() {
@@ -58,22 +59,26 @@ public class MatchScraper {
 
                 String location = splitData.length > 1 ? splitData[1].replaceAll("<.*?>", "").trim() : "Default Location or N/A"; // Removing any HTML tags and trimming
 
-                IPSCMatch IPSCMatch = new IPSCMatch(matchDetailsLink, matchType, country, date, matchName, location, contactEmail);
+                IPSCMatch existingMatch = IPSCMatchRepository.findByMatchDetailsLink(matchDetailsLink);
 
-                // Check if entry exists
-                if (!IPSCMatchRepository.existsByMatchDetailsLink(matchDetailsLink)) {
-                    try {
-                        IPSCMatchRepository.save(IPSCMatch); // Persist the match to the database
-                    } catch (DataAccessException e) {
-                        //TODO Handle database exceptions, log them
-                        System.err.println("Error saving match: " + IPSCMatch);
-                        e.printStackTrace();
-                    }
+                if (existingMatch == null) {
+                    existingMatch = new IPSCMatch(matchDetailsLink, matchType, country, date, matchName, location, contactEmail);
+                }
+                try {
+                    matchDetailsScraper.populateMatchDetails(existingMatch);
+                    IPSCMatchRepository.save(existingMatch);
+                    Thread.sleep(2000);
+
+                } catch (DataAccessException e) {
+                    //TODO Handle database exceptions, log them
+                    System.err.println("Error saving match: " + existingMatch);
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
-
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IPSCMatchRepository extends JpaRepository<IPSCMatch, Integer> {
 
-    boolean existsByMatchDetailsLink(String matchDetailsLink);
+    IPSCMatch findByMatchDetailsLink(String matchDetailsLink);
 }

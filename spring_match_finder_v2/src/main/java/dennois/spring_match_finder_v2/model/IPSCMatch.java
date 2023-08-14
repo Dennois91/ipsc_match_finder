@@ -25,8 +25,14 @@ public class IPSCMatch {
     private String matchName;
     private String location;
     private String contactEmail;
+
     private Double latitude;
     private Double longitude;
+
+    private Integer numberOfDays;
+    private Integer minimumRounds;
+    private Integer numberOfStages;
+    private Double minimumFeeUSD;
 
     public IPSCMatch(String matchDetailsLink, String matchType, String country, String date, String matchName, String location, String contactEmail) {
         this.matchDetailsLink = matchDetailsLink;
@@ -37,4 +43,5 @@ public class IPSCMatch {
         this.location = location;
         this.contactEmail = contactEmail;
     }
+
 }
