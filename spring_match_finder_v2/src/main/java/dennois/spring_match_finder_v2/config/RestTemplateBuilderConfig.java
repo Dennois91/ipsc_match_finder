@@ -18,25 +18,16 @@ import java.time.Duration;
 
 @Configuration
 public class RestTemplateBuilderConfig {
-
     private final String email = System.getenv("EMAIL");
-
-    @Value("${rest.template.root.url}")
-    private String rootUrl;
 
     @Bean
     public RestTemplateBuilder restTemplateBuilder(RestTemplateBuilderConfigurer configurer) {
-        if (rootUrl == null) {
-            throw new IllegalArgumentException("Root URL for RestTemplate is not configured");
-        }
-
         ClientHttpRequestInterceptor interceptor = (request, body, execution) -> {
             request.getHeaders().set("User-Agent", "IPSC Match-Locator (" + email + ")");
             return execution.execute(request, body);
         };
 
         return configurer.configure(new RestTemplateBuilder())
-                .uriTemplateHandler(new DefaultUriBuilderFactory(rootUrl))
                 .setConnectTimeout(Duration.ofSeconds(10))
                 .setReadTimeout(Duration.ofSeconds(10))
                 .errorHandler(new CustomErrorHandler())
@@ -44,8 +35,8 @@ public class RestTemplateBuilderConfig {
     }
 
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder.build();
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
     }
 
     //TODO Custom error handler

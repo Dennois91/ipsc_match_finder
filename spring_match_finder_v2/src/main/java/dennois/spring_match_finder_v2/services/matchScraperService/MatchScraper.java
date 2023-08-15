@@ -2,6 +2,7 @@ package dennois.spring_match_finder_v2.services.matchScraperService;
 
 import dennois.spring_match_finder_v2.model.IPSCMatch;
 import dennois.spring_match_finder_v2.repositories.IPSCMatchRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
+@Slf4j
 public class MatchScraper {
     @Value("${ipsc.calendar.url}")
     private String IPSC_CALENDAR_URL;
@@ -36,6 +38,7 @@ public class MatchScraper {
                     .data("discipline", "")
                     .data("regval", "")
                     .data("submit", "GO")
+                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
                     .post();
 
             Elements matchRows = doc.select("table[cellpadding=9] tr");
@@ -67,11 +70,11 @@ public class MatchScraper {
                 try {
                     matchDetailsScraper.populateMatchDetails(existingMatch);
                     IPSCMatchRepository.save(existingMatch);
+                    log.info("Match details populated and saved: {}", existingMatch);
                     Thread.sleep(2000);
 
                 } catch (DataAccessException e) {
-                    //TODO Handle database exceptions, log them
-                    System.err.println("Error saving match: " + existingMatch);
+                    log.error("Error saving match: {}", existingMatch, e);
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);

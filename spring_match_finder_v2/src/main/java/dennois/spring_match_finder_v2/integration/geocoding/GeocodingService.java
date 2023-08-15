@@ -2,6 +2,7 @@ package dennois.spring_match_finder_v2.integration.geocoding;
 
 import dennois.spring_match_finder_v2.model.IPSCMatch;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -16,6 +20,8 @@ import java.util.Objects;
 @Service
 public class GeocodingService {
 
+    @Value("${geocode.root.url}")
+    private String rootUrl;
     private final RestTemplate restTemplate;
     private final LocationCorrectionService locationCorrectionService;
 
@@ -47,7 +53,12 @@ public class GeocodingService {
     }
 
     private Map<String, Object> fetchCoordinates(String location) {
-        String url = "/search?q=" + location + "&format=json";
+        if (rootUrl == null || rootUrl.trim().isEmpty()) {
+            throw new IllegalStateException("rootUrl is not set or is invalid.");
+        }
+        String encodedLocation = URLEncoder.encode(location, StandardCharsets.UTF_8);
+        String url = rootUrl + "/search?q=" + encodedLocation + "&format=json";
+
         ResponseEntity<List<Map<String, Object>>> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
@@ -60,6 +71,7 @@ public class GeocodingService {
         }
         return null;
     }
+
 
     public void updateMatchWithGeoData(IPSCMatch match, Map<String, Object> geocodeData) {
         Object latObj = geocodeData.get("lat");
