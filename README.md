@@ -7,8 +7,7 @@ Setup Jsoup to scrape matches /done
 Persist to MySql db /done
 Geocode longitude and latitude from location data and add to table. /done
 Refactor scrape to scrape match details on every match srcaped and add minimum round,fee,days to ipscmatch table for more detaild search options. /done
-
-Create Airports table and load in geodata for airports.
+Create Airports table and load in geodata for airports./done
 
 Create REST Api's
 
