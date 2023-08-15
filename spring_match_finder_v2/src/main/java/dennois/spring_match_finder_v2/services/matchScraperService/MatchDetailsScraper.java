@@ -1,4 +1,4 @@
-package dennois.spring_match_finder_v2.scraper;
+package dennois.spring_match_finder_v2.services.matchScraperService;
 
 import dennois.spring_match_finder_v2.model.IPSCMatch;
 import org.jsoup.Jsoup;

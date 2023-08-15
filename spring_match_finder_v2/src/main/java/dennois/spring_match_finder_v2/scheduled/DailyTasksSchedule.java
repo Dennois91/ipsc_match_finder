@@ -1,7 +1,7 @@
 package dennois.spring_match_finder_v2.scheduled;
 
 import dennois.spring_match_finder_v2.integration.geocoding.AppendGeocodeService;
-import dennois.spring_match_finder_v2.scraper.MatchScraper;
+import dennois.spring_match_finder_v2.services.matchScraperService.MatchScraper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
