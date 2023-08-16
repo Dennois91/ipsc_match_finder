@@ -1,12 +1,13 @@
 package dennois.spring_match_finder_v2.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.locationtech.jts.geom.Point;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -34,6 +35,12 @@ public class IPSCMatch {
     private Integer numberOfStages;
     private Double minimumFeeUSD;
 
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
+    private List<Proximity> proximities = new ArrayList<>();
+
+    @Column(columnDefinition = "POINT")
+    private Point locationPoint;
+
     public IPSCMatch(String matchDetailsLink, String matchType, String country, String date, String matchName, String location, String contactEmail) {
         this.matchDetailsLink = matchDetailsLink;
         this.matchType = matchType;
@@ -44,4 +51,23 @@ public class IPSCMatch {
         this.contactEmail = contactEmail;
     }
 
+    @Override
+    public String toString() {
+        return "IPSCMatch{" +
+                "id=" + id +
+                ", matchDetailsLink='" + matchDetailsLink + '\'' +
+                ", matchType='" + matchType + '\'' +
+                ", country='" + country + '\'' +
+                ", date='" + date + '\'' +
+                ", matchName='" + matchName + '\'' +
+                ", location='" + location + '\'' +
+                ", contactEmail='" + contactEmail + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", numberOfDays=" + numberOfDays +
+                ", minimumRounds=" + minimumRounds +
+                ", numberOfStages=" + numberOfStages +
+                ", minimumFeeUSD=" + minimumFeeUSD +
+                '}';
+    }
 }

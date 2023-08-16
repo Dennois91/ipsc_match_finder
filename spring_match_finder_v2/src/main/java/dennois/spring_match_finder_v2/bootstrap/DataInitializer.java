@@ -29,10 +29,10 @@ public class DataInitializer implements CommandLineRunner {
         SSLDisablerConfig.disableSSLVerification();
 
         log.info("Fetching and storing airport data...");
-        airportDataService.fetchAndStoreAirportData();
+        //airportDataService.fetchAndStoreAirportData();
 
         log.info("Fetching and saving matches...");
-        matchScraper.fetchAndSaveMatches();
+        //matchScraper.fetchAndSaveMatches();
 
         try {
             Thread.sleep(2000);
@@ -41,7 +41,7 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         log.info("Updating all matches with coordinates...");
-        appendGeocode.updateAllMatchesWithCoordinates();
+        //appendGeocode.updateAllMatchesWithCoordinates();
 
         log.info("Data initialization completed.");
     }

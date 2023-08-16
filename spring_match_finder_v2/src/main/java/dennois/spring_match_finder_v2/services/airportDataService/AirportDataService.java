@@ -4,6 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import dennois.spring_match_finder_v2.model.Airport;
 import dennois.spring_match_finder_v2.repositories.AirportRepository;
+import dennois.spring_match_finder_v2.services.proximityService.SpatialService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import org.locationtech.jts.geom.Point;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,15 +31,16 @@ public class AirportDataService {
     private String Url;
     private final RestTemplate restTemplate;
     private final AirportRepository airportRepository;
+    private final SpatialService spatialService;
 
 
     @Autowired
-    public AirportDataService(RestTemplate restTemplate, AirportRepository airportRepository) {
+    public AirportDataService(RestTemplate restTemplate, AirportRepository airportRepository, SpatialService spatialService) {
         this.restTemplate = restTemplate;
         this.airportRepository = airportRepository;
+        this.spatialService = spatialService;
     }
 
-    @Transactional
     public void fetchAndStoreAirportData() {
         byte[] csvContent = fetchAirportDataFromSource();
         File tempFile = saveToTempFile(csvContent);
@@ -99,6 +102,7 @@ public class AirportDataService {
                 airport.setName(nextLine[3]);
                 airport.setLatitude(Double.parseDouble(nextLine[4]));
                 airport.setLongitude(Double.parseDouble(nextLine[5]));
+                airport.setLocationPoint(spatialService.createPoint(airport.getLatitude(),airport.getLongitude()));
 
                 airports.add(airport);
             }
@@ -112,6 +116,7 @@ public class AirportDataService {
         }
     }
 
+    @Transactional
     public void updateDatabase(List<Airport> airports) {
         if (airports == null || airports.isEmpty()) {
             log.warn("No airports to update in the database.");
@@ -120,6 +125,7 @@ public class AirportDataService {
         try {
             log.info("Starting update of airport data...");
             airportRepository.deleteAll();
+
             List<Airport> savedAirports = airportRepository.saveAll(airports);
             log.info("Successfully updated {} airports in the database.", savedAirports.size());
         } catch (Exception e) {

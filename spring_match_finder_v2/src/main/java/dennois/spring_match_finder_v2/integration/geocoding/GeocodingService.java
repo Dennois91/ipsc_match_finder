@@ -1,6 +1,8 @@
 package dennois.spring_match_finder_v2.integration.geocoding;
 
 import dennois.spring_match_finder_v2.model.IPSCMatch;
+import dennois.spring_match_finder_v2.services.proximityService.SpatialService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -10,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -25,10 +26,12 @@ public class GeocodingService {
     private final RestTemplate restTemplate;
     private final LocationCorrectionService locationCorrectionService;
 
+
     @Autowired
     public GeocodingService(RestTemplate restTemplate, LocationCorrectionService locationCorrectionService) {
         this.restTemplate = restTemplate;
         this.locationCorrectionService = locationCorrectionService;
+
     }
 
     public void updateMatchWithCoordinates(IPSCMatch match) {
@@ -77,6 +80,7 @@ public class GeocodingService {
         Object latObj = geocodeData.get("lat");
         Object lonObj = geocodeData.get("lon");
 
+
         if (latObj != null && lonObj != null) {
             String latString = latObj.toString().trim();
             String lonString = lonObj.toString().trim();
@@ -87,6 +91,7 @@ public class GeocodingService {
 
                 match.setLatitude(lat);
                 match.setLongitude(lon);
+
             } catch (NumberFormatException e) {
                 //TODO Handle exception
             }
