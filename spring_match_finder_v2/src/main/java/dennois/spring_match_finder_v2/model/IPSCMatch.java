@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.locationtech.jts.geom.Point;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class IPSCMatch {
     private List<Proximity> proximities = new ArrayList<>();
 
     @Column(columnDefinition = "POINT")
+    @NonNull
     private Point locationPoint;
 
     public IPSCMatch(String matchDetailsLink, String matchType, String country, String date, String matchName, String location, String contactEmail) {

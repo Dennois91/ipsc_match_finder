@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.locationtech.jts.geom.Point;
+import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,7 @@ public class Airport {
     private List<Proximity> proximities = new ArrayList<>();
 
     @Column(columnDefinition = "POINT")
+    @NonNull
     private Point locationPoint;
 
     public Airport(int id, String ident, String name, Double latitude, Double longitude) {
