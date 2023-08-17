@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LocationCorrectionServiceTest {
 
-    private LocationCorrectionService locationCorrectionService;
+    private LocationCorrectionServiceImpl locationCorrectionService;
 
     @BeforeEach
     public void setUp() {
-        locationCorrectionService = new LocationCorrectionService();
+        locationCorrectionService = new LocationCorrectionServiceImpl();
     }
 
     @Test

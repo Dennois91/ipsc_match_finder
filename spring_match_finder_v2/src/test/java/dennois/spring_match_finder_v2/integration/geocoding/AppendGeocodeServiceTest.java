@@ -19,10 +19,10 @@ class AppendGeocodeServiceTest {
     private IPSCMatchRepository matchRepository;
 
     @Mock
-    private GeocodingService geocodingService;
+    private GeocodingServiceImpl geocodingService;
 
     @InjectMocks
-    private AppendGeocodeService appendGeocodeService;
+    private AppendGeocodeServiceImpl appendGeocodeService;
 
     @BeforeEach
     public void setUp() {

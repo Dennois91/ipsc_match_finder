@@ -18,7 +18,7 @@ public class GeocodingServiceTest {
     private IPSCMatch iPSCMatch;
 
     @InjectMocks
-    private GeocodingService geocodingService;
+    private GeocodingServiceImpl geocodingService;
 
     @Test
     public void testUpdateMatchWithGeoData_WithNullLatLon() {

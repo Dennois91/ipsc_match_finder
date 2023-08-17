@@ -2,9 +2,13 @@ package dennois.spring_match_finder_v2.bootstrap;
 
 import dennois.spring_match_finder_v2.config.SSLDisablerConfig;
 import dennois.spring_match_finder_v2.integration.geocoding.AppendGeocodeService;
+import dennois.spring_match_finder_v2.integration.geocoding.AppendGeocodeServiceImpl;
 import dennois.spring_match_finder_v2.services.airportDataService.AirportDataService;
+import dennois.spring_match_finder_v2.services.airportDataService.AirportDataServiceImpl;
 import dennois.spring_match_finder_v2.services.matchScraperService.MatchScraper;
+import dennois.spring_match_finder_v2.services.matchScraperService.MatchScraperImpl;
 import dennois.spring_match_finder_v2.services.proximityService.ProximityService;
+import dennois.spring_match_finder_v2.services.proximityService.ProximityServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
