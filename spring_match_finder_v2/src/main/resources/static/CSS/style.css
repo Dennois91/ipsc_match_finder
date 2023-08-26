@@ -1,0 +1,149 @@
+.circle-image {
+    width: 350px;
+    height: 210px;
+    background-image: url('images/profil3.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 20px auto;
+    animation: fadein 2s ease-in-out;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+body {
+    background: #EEEEEE;
+    margin: 0;
+}
+
+.home p {
+    text-align: center;
+    padding-left: 80px;
+    padding-right: 80px;
+    font-size: 1.5em;
+}
+
+.titles {
+    color: #C3A007;
+    display: flex;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 26px;
+    margin-left: 5px;
+
+}
+
+@media screen and (max-width: 992px) {
+    .titles {
+        display: none;
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    color: #EEEEEE;
+    margin: 10px;
+    text-decoration: none;
+}
+
+nav a:hover,
+nav a:active {
+    color: #C3A007;
+}
+
+header {
+    background-color: #393E46;
+    margin: 0;
+    height: 80px;
+    width: 100%;
+}
+
+footer {
+    background-color: #393E46;
+    height: 100%;
+    width: 100%;
+    color: #C3A007;
+    margin: auto 0 0;
+
+}
+
+footer a {
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.fader {
+    margin: 0;
+    height: 15px;
+    width: 100%;
+    display: block;
+    background-image: linear-gradient(to bottom, #393E46, #EEEEEE);
+}
+
+main {
+    font-family: Bahnschrift, serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.project-description img {
+    max-width: 30%;
+    height: auto;
+}
+
+.project-description ol {
+    list-style: upper-roman;
+}
+
+iframe {
+    display: block;
+    margin: 0 auto;
+}
+
+.kontakt-uppgifter {
+    display: block;
+    margin: 0 auto;
+    font-size: 30px;
+
+}
+
+.my-iframe {
+    width: 40%;
+}
+
+main h1 {
+    color: #C3A007;
+    font-size: 2.5em;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 30px;
+}
+
